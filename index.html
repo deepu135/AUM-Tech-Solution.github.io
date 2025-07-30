@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AUM TECH SOLUTION - Home</title>
+
+  <!-- Google Fonts + AOS -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #111;
+      --card-bg: #f2f2f2;
+      --highlight: #4e9af1;
+    }
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --card-bg: #1e1e1e;
+      --highlight: #00e5ff;
+    }
+
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      transition: all 0.4s ease;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: #fff;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .gear {
+      font-size: 90px;
+      color: #073ee1;
+      animation: spin 2s linear infinite;
+    }
+    #preloader h1 {
+      font-size: 3rem;
+      margin-top: 5px;
+      color: #170493;
+      font-weight: bold;
+      animation: fadeUp 2s ease-in-out;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(1080deg); }
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      padding: 15px 40px;
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-section img {
+      height: 40px;
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--highlight);
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav button {
+      padding: 10px 18px;
+      background: transparent;
+      border: 2px solid var(--highlight);
+      color: var(--highlight);
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    nav button::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--highlight);
+      z-index: 0;
+      transition: left 0.4s ease;
+    }
+
+    nav button:hover::before {
+      left: 0;
+    }
+
+    nav button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    nav button:hover {
+      color: var(--bg-color);
+      transform: scale(1.05);
+    }
+
+    .toggle-btn {
+      background: var(--highlight);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: #007fc2;
+    }
+
+    /* Hero slideshow */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .slides {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s, transform 1s;
+      position: absolute;
+    }
+    .slides img.active {
+      opacity: 1;
+      transform: scale(1.05);
+      z-index: 1;
+    }
+    .arrows {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 5;
+    }
+    .arrows button {
+      padding: 10px;
+      border: none;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .arrows button:hover {
+      background: var(--highlight);
+    }
+
+    .hero h1 {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f8f8f8;
+      font-size: 3rem;
+      z-index: 2;
+    }
+
+/* Services */
+    .services-section { padding:80px 30px; background:var(--card); text-align:center; }
+    .services-section h2 { font-size:2.5rem; color:var(--highlight); margin-bottom:40px; }
+    .services-grid {
+      display:grid;
+      gap:30px;
+      max-width:1200px; margin:auto;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    }
+    .service-card {
+      perspective:1000px; background:var(--bg);
+    }
+    .service-card-inner {
+      transition:transform .8s; transform-style:preserve-3d;
+      position:relative;
+    }
+    .service-card:hover .service-card-inner { transform:rotateY(180deg); }
+    .service-card-front, .service-card-back {
+      backface-visibility:hidden;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 0 15px rgba(0,0,0,.1);
+      min-height:200px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+    }
+    .service-card-back {
+      background:var(--highlight); color:#fff;
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      transform:rotateY(180deg);
+    }
+    .service-card img { width:60px; margin-bottom:15px; }
+    .service-card h3 { margin-bottom:10px; }
+    .service-card p { font-size:0.95rem; color:var(--text); }
+    /* Counter */
+    .counter-section {
+      display:flex; justify-content:space-around;
+      background:var(--card); padding:50px; text-align:center;
+    }
+    .counter { font-size:2.2rem; color:var(--highlight); }
+    .counter-label { margin-top:10px; font-size:1rem; color:var(--text); }
+
+    /* Gallery */
+    .gallery { padding:80px 30px; background:var(--bg); text-align:center; }
+    .gallery h2 { font-size:2.5rem; color:var(--highlight); margin-bottom:30px; }
+    .gallery-grid {
+      display:grid; gap:15px;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    }
+    .gallery-grid img {
+      width:100%; border-radius:10px;
+      opacity:0; transform:scale(.8) translateY(20px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .gallery-grid img.visible {
+      opacity:1; transform:scale(1) translateY(0);
+    }
+
+    @media(max-width:768px){
+      .slide-info h1 { font-size:2rem; }
+      .services-section h2 { font-size:2rem; }
+      .counter-section { flex-direction:column; gap:30px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+  <i class="fas fa-cog gear"></i>
+  <h1>AUM TECH SOLUTION</h1>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="logo-section">
+    <img src="C:\Users\DIPU KUMAR\Documents\aumtechlogo.jpg" alt="AUM TECH SOLUTION Logo">
+    <div class="logo-text">AUM TECH SOLUTION</div>
+  </div>
+  <nav>
+    <button><span>Home</span></button>
+    <a href="aboutuspage.html"><button><span>About Us</span></button></a>
+    <button><span>Services</span></button>
+    <button><span>My Projects</span></button>
+    <a href="contactpage.html"><button><span>Contact Us</span></button></a>
+  </nav>
+  <button class="toggle-btn" onclick="toggleTheme()">Toggle Theme</button>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="slides">
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-mikhail-nilov-9242845.jpg" class="active"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-pixabay-162539.jpg"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-joshsorenson-1714208.jpg"/>
+  </div>
+  <div class="overlay"></div>
+  <div class="slide-info">
+    <h1>Empowering Businesses</h1>
+    <p>AUM TECH SOLUTION helps startups grow with reliable tech.</p>
+  </div>
+  <div class="slide-info">
+    <h1>Building Scalable Solutions</h1>
+    <p>Custom web and mobile development tailored to your needs.</p>
+  </div>
+  <div class="slide-info">
+    <h1>Innovating with Technology</h1>
+    <p>Cloud hosting, SEO, analytics – all under one roof.</p>
+  </div>
+  <div class="arrows">
+   
+    <button onclick="nextSlide()"><i class="fas fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services-section" id="services">
+  <h2>Our Services</h2>
+  <div class="services-grid">
+    <!-- repeat for 6 services -->
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\web d logo.png"/><h3>Web Development</h3><p>Responsive & SEO‑ready websites.</p></div>
+      <div class="service-card-back"><h3>Web Dev</h3><p>Fast and scalable web apps.</p></div>
+    </div></div>
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\ui logo.png"/><h3>UI/UX Design</h3><p>Clean, intuitive user interfaces.</p></div>
+      <div class="service-card-back"><h3>UI/UX</h3><p>Design that delights users.</p></div>
+    </div></div>
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\seo logo.png"/><h3>SEO Optimization</h3><p>Improve search rankings organically.</p></div>
+      <div class="service-card-back"><h3>SEO</h3><p>White‑hat strategy & execution.</p></div>
+    </div></div>
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\app dlogo.png"/><h3>App Development</h3><p>Native & hybrid mobile apps.</p></div>
+      <div class="service-card-back"><h3>Mobile</h3><p>Android & iOS optimized.</p></div>
+    </div></div>
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\analytics logo.png"/><h3>Analytics</h3><p>Dashboards & real-time insights.</p></div>
+      <div class="service-card-back"><h3>Analytics</h3><p>Data‑driven decisions made easy.</p></div>
+    </div></div>
+    <div class="service-card"><div class="service-card-inner">
+      <div class="service-card-front"><img src="C:\Users\DIPU KUMAR\Downloads\cloud logo.png"/><h3>Cloud Solutions</h3><p>Secure, scalable cloud hosting.</p></div>
+      <div class="service-card-back"><h3>Cloud</h3><p>Reliable infrastructure & support.</p></div>
+    </div></div>
+  </div>
+</section>
+
+<div class="counter-section">
+  <div><div class="counter" data-target="150">0</div><div class="counter-label">Clients</div></div>
+  <div><div class="counter" data-target="300">0</div><div class="counter-label">Projects</div></div>
+  <div><div class="counter" data-target="15">0</div><div class="counter-label">Years Experience</div></div>
+</div>
+
+<section class="gallery">
+  <h2>Our Gallery</h2>
+  <div class="gallery-grid">
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-designecologist-1779487.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-davideibiza-11813187.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\hero image.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-tranmautritam-326514.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-tranmautritam-326503.jpg" alt="Gallery"/><br>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-olly-864994.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-fauxels-3184611.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-picjumbo-com-55570-196644.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-pixabay-355952.jpg" alt="Gallery"/>
+    <img src="C:\Users\DIPU KUMAR\Downloads\pexels-tranmautritam-245032.jpg" alt="Gallery"/>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration:1000 });
+
+  window.addEventListener('load', ()=>{
+    setTimeout(()=> document.getElementById('preloader').style.display='none', 3000);
+  });
+
+  function toggleTheme(){ document.body.classList.toggle('dark'); }
+
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.slides img');
+  const infos = document.querySelectorAll('.slide-info');
+  function showSlide(i){
+    slides.forEach((s, idx)=> s.classList.toggle('active', idx===i));
+    infos.forEach((inf,idx)=> inf.style.display = idx===i ? 'block' : 'none');
+  }
+  function nextSlide(){ slideIndex = (slideIndex+1)%slides.length; showSlide(slideIndex); }
+  function prevSlide(){ slideIndex = (slideIndex-1+slides.length)%slides.length; showSlide(slideIndex); }
+  showSlide(slideIndex);
+  setInterval(nextSlide, 5000);
+
+  // Counter animation
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = +el.getAttribute('data-target');
+        let count = 0;
+        const step = Math.ceil(target/200);
+        const update = ()=>{
+          count += step;
+          if(count < target){
+            el.innerText = count;
+            setTimeout(update,10);
+          } else el.innerText = target;
+        }
+        update();
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold:0.5 });
+  counters.forEach(c=>counterObserver.observe(c));
+
+  // Gallery reveal
+  const galleryImgs = document.querySelectorAll('.gallery-grid img');
+  galleryImgs.forEach(img => {
+    img.onload = ()=> img.classList.add('visible');
+    if(img.complete) img.classList.add('visible');
+  });
+</script>
+</body>
+</html>
